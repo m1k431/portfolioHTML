@@ -382,7 +382,7 @@
       </div>
       <h2>
         <div class="english">This website hosts my experiences and skills</div>
-        <div class="french">Ce site héberge mes sexpériences et compétences</div>
+        <div class="french">Ce site hEberge mes expEriences et compEtences</div>
       </h2>
       <div id="s0leil"></div><a href="https://twitter.com/K431M1?ref_src=twsrc%5Etfw" data-size="large"
         data-show-count="false">Follow @K431M1</a><canvas class="background"></canvas>
@@ -397,6 +397,9 @@
   <script src="/static/js/jquery-3.3.1.min.js"></script>
   <script src="/static/js/jquery-ui.min.js"></script>
   <script src="./static/js/particles.min.js"></script>
+  <script src="/static/js/soleil.js"></script>
+  <script src="/static/js/BrickBreaker.js"></script>
+  <script src="/static/js/layoutNav.js"></script>
   <!--script(src='/static/js/socket.io.js')-->
   <script>window.onload = function () {
       Particles.init({
@@ -406,11 +409,8 @@
         maxParticles: 50
       })
       //console.log(document.querySelector(".content").offsetHeight)
-      $('.background').css('height', document.querySelector(".content").clientHeight + 'px')
+      $('.background').css('height', document.querySelector("body").offsetHeight + 'px')
     }</script>
-  <script src="/static/js/soleil.js" defer></script>
-  <script src="/static/js/BrickBreaker.js" defer></script>
-  <script src="/static/js/layoutNav.js" defer></script>
   <script>$('#intro').removeClass('css3button')
     $('#intro').addClass('css3buttonRed')
     $('#resume').removeClass('css3buttonRed')

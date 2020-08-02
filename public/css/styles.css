@@ -349,11 +349,6 @@ template {
   padding: 5px 2px 5px 2px;
 }
 
-body,
-html {
-  height: 100%;
-}
-
 body {
   align-items: center;
   background-color: rgba(2, 106, 243, 0.99);

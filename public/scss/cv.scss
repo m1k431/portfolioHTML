@@ -8,11 +8,40 @@ $myfont: monospace;
   font-family: monospace;
 }
 
+h1 {
+  color: white;
+  text-transform: uppercase;
+  margin-bottom: 0.3em;
+  margin-top: 0.3em;
+  font-size: 1.2em;
+}
+
+h2 {
+  color: white;
+  text-transform: uppercase;
+  margin-bottom: 0.3em;
+  margin-top: 0.3em;
+  font-size: 1em;
+}
+
+h3 {
+  color: white;
+  text-transform: uppercase;
+  margin-bottom: 0em;
+  margin-top: 0.3em;
+  font-size: 0.8em;
+}
+
 @media print {
 
   #navBar,
-  #footer {
+  #footer,
+  .flags {
     display: none;
+  }
+
+  #m0ncentrage {
+    max-width: none;
   }
 }
 
@@ -47,22 +76,6 @@ p.moiPara {
 
 html {
   margin: 0.1%;
-}
-
-.titreH2 {
-  color: white;
-  text-transform: uppercase;
-  margin-bottom: 0.3em;
-  margin-top: 0.3em;
-  //font-size: 2em;
-}
-
-.titreH3 {
-  color: white;
-  text-transform: uppercase;
-  margin-top: 0.4em;
-  margin-bottom: 0em;
-  font-size: 1em;
 }
 
 .french {

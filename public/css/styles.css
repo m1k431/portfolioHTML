@@ -396,7 +396,6 @@ iframe {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 2em;
   margin-top: 0.5%;
   text-align: center;
 }
@@ -404,6 +403,7 @@ iframe {
 .me {
   margin: 0.3em;
   padding-bottom: 1em;
+  padding-top: 1em;
 }
 
 h1,
@@ -531,7 +531,7 @@ a {
   width: 18%;
   margin-left: 39%;
   margin-right: 39%;
-  top: -50px;
+  top: -40px;
   font-family: monospace;
   border-radius: 28px;
   font-size: 1em;

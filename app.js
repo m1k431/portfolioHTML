@@ -1,3 +1,5 @@
+const { urlencoded } = require('express')
+
 Date.prototype.getMonthFormatted = function () {
     var month = this.getMonth() + 1
     return month < 10 ? '0' + month : month
@@ -26,6 +28,9 @@ var express = require('express'),
     uid = require('uid-safe'),
     bodyParser = require('body-parser'),
     parseurl = require('parseurl'),
+    urlencodedParser = bodyParser.urlencoded({
+        extended: false
+    }),
     fs = require('fs'),
     favicon = require('serve-favicon'),
     path = require('path'),
@@ -72,16 +77,16 @@ log4js.configure({
     }
 })
 
+
 //mongoDB____________________________________________________________________
 //const uri = "mongodb+srv://mika:BZmYdQLnVrTe7uk7@cluster0-5cwg1.mongodb.net/test?retryWrites=true&w=majority"
 
-const MongoClient = require('mongodb').MongoClient
-const uri = "mongodb+srv://mika:BZmYdQLnVrTe7uk7@cluster0.5cwg1.mongodb.net/m1k431?retryWrites=true&w=majority"
-const client = new MongoClient(uri, {
-    useUnifiedTopology: true
-})
-
-async function run() {
+async function displayConsoleScore() {
+    const MongoClient = require('mongodb').MongoClient
+    const uri = "mongodb+srv://mika:BZmYdQLnVrTe7uk7@cluster0.5cwg1.mongodb.net/m1k431?retryWrites=true&w=majority"
+    const client = new MongoClient(uri, {
+        useUnifiedTopology: true
+    })
     try {
         await client.connect();
 
@@ -89,13 +94,14 @@ async function run() {
         const collection = database.collection("brickBreaker");
 
         // query for movies that have a runtime less than 15 minutes
+        //const query = { visitorName: "mika"};
         const query = {};
 
         const options = {
             // sort returned documents in ascending order by title (A->Z)
             sort: { score: 1 },
             // Include only the `title` and `imdb` fields in each returned document
-            //  projection: { _id: 0, title: 1, imdb: 1 },
+            projection: { _id: 0, visitorName: 1, score: 1 },
         };
 
         const cursor = collection.find(query, options);
@@ -110,11 +116,6 @@ async function run() {
         await client.close();
     }
 }
-run().catch(console.dir);
-
-
-
-
 
 
 //APP.FS____________________________________________________________________
@@ -188,6 +189,8 @@ app.get('/', (req, res) => {
     //ip track
     req.session.ip = req.connection.remoteAddress
     req.session.geoloc = geoip.lookup(req.session.ip)
+    //score breaker
+    displayConsoleScore().catch(console.dir)
     res.render('index.html', {})
     //LOGGER
     logger.trace(req.sessionID)
@@ -245,6 +248,43 @@ app.get('/giftedADHD', (req, res) => {
     //LOGGER
     logger.trace(req.session)
     console.log(req.session)
+})
+
+app.get('/highscore', urlencodedParser, (req, res) => {
+    displayConsoleScore().catch(console.dir)
+    if (error) throw error
+})
+
+app.post('/highscore', urlencodedParser, (req, res) => {
+    var name = req.body.name
+    var score = req.body.score
+    async function submitScore() {
+        const MongoClient = require('mongodb').MongoClient
+        const uri = "mongodb+srv://mika:BZmYdQLnVrTe7uk7@cluster0.5cwg1.mongodb.net/m1k431?retryWrites=true&w=majority"
+        const client = new MongoClient(uri, {
+            useUnifiedTopology: true
+        })
+        try {
+            await client.connect();
+
+            const database = client.db("m1k431");
+            const collection = database.collection("brickBreaker");
+            // create a document to be inserted
+            const doc = { visitorName: name, score: score };
+            const result = await collection.insertOne(doc);
+
+            console.log(
+                `${result.insertedCount} documents were inserted with the _id: ${result.insertedId}`,
+            );
+        } finally {
+            await client.close();
+        }
+    }
+
+    console.log(req.body.name + 'score: ' + req.body.score)
+    console.log(req.body)
+    //score breaker
+    submitScore().catch(console.dir)
 })
 
 //APP.LISTEN______________________________________________________________

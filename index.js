@@ -33,7 +33,8 @@ const
     fs = require('fs'),
     geoip = require('geoip-lite'),
     uid = require('uid-safe'),
-    parseurl = require('parseurl')
+    parseurl = require('parseurl'),
+    mongoClient = require('mongodb')
 
 let datetime = new Date(),
     p0rt = 80,
@@ -60,8 +61,8 @@ var nbLog = datetime.getFullYear() + String(datetime.getMonthFormatted()) + Stri
     }
 
 //mongoDB
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://snow:<password>@cluster0-5cwg1.mongodb.net/<dbname>?retryWrites=true&w=majority"
+//const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://mika:BZmYdQLnVrTe7uk7@cluster0-5cwg1.mongodb.net/m1k431?retryWrites=true&w=majority"
 const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -69,7 +70,7 @@ const client = new MongoClient(uri, {
 client.connect(err => {
     const collection = client.db("m1k431").collection("brickBreaker")
     // perform actions on the collection object
-    //console.log(collection)
+    console.log(collection)
     /*collection.insertOne({
         visitorName: 'mika',
         score: '123'

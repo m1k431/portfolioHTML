@@ -73,23 +73,49 @@ log4js.configure({
 })
 
 //mongoDB____________________________________________________________________
-const MongoClient = require('mongodb').MongoClient,
-    uri = "mongodb+srv://snow:<password>@cluster0-5cwg1.mongodb.net/<dbname>?retryWrites=true&w=majority",
-    client = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
+//const uri = "mongodb+srv://mika:BZmYdQLnVrTe7uk7@cluster0-5cwg1.mongodb.net/test?retryWrites=true&w=majority"
 
-client.connect(err => {
-    const collection = client.db("m1k431").collection("brickBreaker")
-    // perform actions on the collection object
-    //console.log(collection)
-    /*collection.insertOne({
-        visitorName: 'mika',
-        score: '123'
-    })*/
-    client.close()
+const MongoClient = require('mongodb').MongoClient
+const uri = "mongodb+srv://mika:BZmYdQLnVrTe7uk7@cluster0.5cwg1.mongodb.net/m1k431?retryWrites=true&w=majority"
+const client = new MongoClient(uri, {
+    useUnifiedTopology: true
 })
+
+async function run() {
+    try {
+        await client.connect();
+
+        const database = client.db("m1k431");
+        const collection = database.collection("brickBreaker");
+
+        // query for movies that have a runtime less than 15 minutes
+        const query = {};
+
+        const options = {
+            // sort returned documents in ascending order by title (A->Z)
+            sort: { score: 1 },
+            // Include only the `title` and `imdb` fields in each returned document
+            //  projection: { _id: 0, title: 1, imdb: 1 },
+        };
+
+        const cursor = collection.find(query, options);
+
+        // print a message if no documents were found
+        if ((await cursor.count()) === 0) {
+            console.log("No documents found!");
+        }
+
+        await cursor.forEach(console.dir);
+    } finally {
+        await client.close();
+    }
+}
+run().catch(console.dir);
+
+
+
+
+
 
 //APP.FS____________________________________________________________________
 fs.writeFile(filePath, datetime, (err) => {

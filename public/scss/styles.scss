@@ -67,8 +67,7 @@ iframe {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 0.5%;
-    margin-top: 0.5%;
+    vertical-align: middle;
 }
 
 #CV {
@@ -200,8 +199,8 @@ a {
     display: none;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 60px;
-    margin-bottom: 60px;
+    margin-top: 15%;
+    margin-bottom: 15%;
     max-width: 800px;
 }
 
@@ -224,12 +223,9 @@ a {
     margin: 1%;
 }
 
-#s0leil,
-#jugglejungle {
+#jugglejungle,
+#s0leil {
     @extend %videoSoleil;
-}
-
-#jugglejungle {
     margin-top: 1em;
 }
 

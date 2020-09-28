@@ -335,8 +335,8 @@ template {
   src: url(/static/fonts/IBMLogo.ttf);
   font-weight: bold;
 }
-#s0leil,
-#jugglejungle {
+#jugglejungle,
+#s0leil {
   display: none;
   width: 90%;
   border-radius: 10px;
@@ -388,8 +388,7 @@ iframe {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 0.5%;
-  margin-top: 0.5%;
+  vertical-align: middle;
 }
 
 #CV {
@@ -507,8 +506,8 @@ a {
   display: none;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 15%;
+  margin-bottom: 15%;
   max-width: 800px;
 }
 
@@ -529,7 +528,8 @@ a {
   margin: 1%;
 }
 
-#jugglejungle {
+#jugglejungle,
+#s0leil {
   margin-top: 1em;
 }
 
@@ -646,5 +646,3 @@ a {
 .refs {
   margin: 5px;
 }
-
-/*# sourceMappingURL=styles.css.map */

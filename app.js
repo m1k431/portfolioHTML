@@ -43,6 +43,7 @@ var express = require('express'),
     datetime = new Date(),
     logger = log4js.getLogger('file'),
     nbLog = datetime.getFullYear() + String(datetime.getMonthFormatted()) + String(datetime.getDate()) + String(datetime.getHoursFormatted()) + String(datetime.getMinutesFormatted()) + String(datetime.getSecondsFormatted()),
+    mysql = require('mysql'),
     app = express()
 
 let p0rt = 80,
@@ -76,46 +77,6 @@ log4js.configure({
         file: { appenders: ['file'], level: 'trace' }
     }
 })
-
-
-//mongoDB____________________________________________________________________
-//const uri = "mongodb+srv://mika:BZmYdQLnVrTe7uk7@cluster0-5cwg1.mongodb.net/test?retryWrites=true&w=majority"
-
-async function displayConsoleScore() {
-    const MongoClient = require('mongodb').MongoClient
-    const uri = "mongodb+srv://mika:BZmYdQLnVrTe7uk7@cluster0.5cwg1.mongodb.net/m1k431?retryWrites=true&w=majority"
-    const client = new MongoClient(uri, {
-        useUnifiedTopology: true
-    })
-    try {
-        await client.connect();
-
-        const database = client.db("m1k431");
-        const collection = database.collection("brickBreaker");
-
-        // query for movies that have a runtime less than 15 minutes
-        //const query = { visitorName: "mika"};
-        const query = {};
-
-        const options = {
-            // sort returned documents in ascending order by title (A->Z)
-            sort: { score: 1 },
-            // Include only the `title` and `imdb` fields in each returned document
-            projection: { _id: 0, visitorName: 1, score: 1 },
-        };
-
-        const cursor = collection.find(query, options);
-
-        // print a message if no documents were found
-        if ((await cursor.count()) === 0) {
-            console.log("No documents found!");
-        }
-
-        await cursor.forEach(console.dir);
-    } finally {
-        await client.close();
-    }
-}
 
 
 //APP.FS____________________________________________________________________
@@ -161,18 +122,31 @@ app.use('/static', express.static(__dirname + '/public', {
     maxAge: '0d'
 }))
 
+//sess.store.clear()
+app.use(session(sess))
+
+
+app.engine('html', require('ejs').renderFile);
+//app.set('view engine', 'pug')
+app.set('view engine', 'html');
+app.set('views', 'public')
+
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
     sess.cookie.secure = true // serve secure cookies
 }
 
-//sess.store.clear()
-app.use(session(sess))
+//mysql
+var conMysql = mysql.createConnection({
+    host: 'localhost',
+    user: 'webuser',
+    password: 'azerty' //local=azerty online=iop
+})
 
-//app.set('view engine', 'pug')
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-app.set('views', 'public')
+conMysql.connect(function (err) {
+    if (err) throw err
+    console.log('connected')
+})
 
 //APP.GET_________________________________________________________________
 app.get('/', (req, res) => {
@@ -189,8 +163,6 @@ app.get('/', (req, res) => {
     //ip track
     req.session.ip = req.connection.remoteAddress
     req.session.geoloc = geoip.lookup(req.session.ip)
-    //score breaker
-    displayConsoleScore().catch(console.dir)
     res.render('index.html', {})
     //LOGGER
     logger.trace(req.sessionID)
@@ -251,40 +223,35 @@ app.get('/giftedADHD', (req, res) => {
 })
 
 app.get('/highscore', urlencodedParser, (req, res) => {
-    displayConsoleScore().catch(console.dir)
-    if (error) throw error
+    conMysql.query('select name, score from portfolio.highscore order by score desc limit 10', function (error, results, fields) {
+        if (error) throw error
+        console.log(results)
+        res.send(results)
+    })
 })
-
 app.post('/highscore', urlencodedParser, (req, res) => {
     var name = req.body.name
     var score = req.body.score
-    async function submitScore() {
-        const MongoClient = require('mongodb').MongoClient
-        const uri = "mongodb+srv://mika:BZmYdQLnVrTe7uk7@cluster0.5cwg1.mongodb.net/m1k431?retryWrites=true&w=majority"
-        const client = new MongoClient(uri, {
-            useUnifiedTopology: true
-        })
-        try {
-            await client.connect();
-
-            const database = client.db("m1k431");
-            const collection = database.collection("brickBreaker");
-            // create a document to be inserted
-            const doc = { visitorName: name, score: score };
-            const result = await collection.insertOne(doc);
-
-            console.log(
-                `${result.insertedCount} documents were inserted with the _id: ${result.insertedId}`,
-            );
-        } finally {
-            await client.close();
-        }
-    }
-
     console.log(req.body.name + 'score: ' + req.body.score)
     console.log(req.body)
-    //score breaker
-    submitScore().catch(console.dir)
+    conMysql.query('insert into portfolio.highscore values (?,?);', [name, score], function (error, ok) {
+        if (error) throw error
+        console.log(ok)
+        conMysql.query('select name, score from portfolio.highscore order by score desc limit 10', function (error, results, fields) {
+            if (error) throw error
+            console.log(results)
+            /*res.render('index.pug', {
+                    results
+                },
+                function (error, html) {
+                    if (error) {
+                        return
+                    }
+                    res.send(html)
+                })*/
+            res.send(results)
+        })
+    })
 })
 
 //APP.LISTEN______________________________________________________________

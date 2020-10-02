@@ -359,6 +359,25 @@ const jeuBreaker = function () {
                 $('#skills').hide()
                 $('#score').fadeIn()
                 $('#scoreForm').fadeIn()
+                $.ajax({
+                    type: 'GET',
+                    url: '/highscore',
+                    dataType: 'json',
+                    success: function (reponse) {
+                        console.log('GET success: ' + reponse)
+                        var tbodyEl = $('tbody')
+                        tbodyEl.html('')
+                        reponse.forEach(function (score) {
+                            tbodyEl.append('\
+                            <tr>\
+                            <td>' + score.name + '</td>\
+                            <td>' + score.score + '</td>\
+                            </tr>\
+                            ')
+                        })
+                    }
+                })
+                $('#highScore').fadeIn()
                 $('.background').css('height', '1400px')
             }
         }

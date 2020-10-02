@@ -381,6 +381,18 @@ iframe {
   margin-top: 0.5em;
 }
 
+#highScore {
+  margin-bottom: 1em;
+}
+
+.nom {
+  font-size: 1.3em;
+}
+
+#subScore {
+  font-size: 1.3em;
+}
+
 #INDEX {
   border: 1px solid white;
   border-radius: 10px;

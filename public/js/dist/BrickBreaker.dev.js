@@ -81,7 +81,7 @@ var jeuBreaker = function jeuBreaker() {
     $div2blink.removeClass('backgroundRed');
     $div2blink.css('background-color', 'rgba(255, 255, 255, 0.4)');
     $('#metier > h2').text('SCORE: ' + score).fadeIn(375);
-    $('#metier > h2').css('font-size', '2em'); //var linkOff = $('#linkedIn').offset()
+    $('#metier > h2').css('font-size', '1.5em'); //var linkOff = $('#linkedIn').offset()
     //________________________________________DIV FOOTBALL SPRITE_____________________________________________
 
     var divSprite = window.document.createElement('div');
@@ -340,7 +340,6 @@ var jeuBreaker = function jeuBreaker() {
           }, 500);
           mesInfosT[i].className = 'infoJeu';
           score += 50 * combo;
-          $('#metier > h1').text('SCORE: ' + score).fadeIn(375);
         }
 
         i--;
@@ -400,8 +399,8 @@ var jeuBreaker = function jeuBreaker() {
     $('#scoreForm').on('submit', function (event) {
       event.preventDefault();
       console.log($('#postName').val() + '/' + score);
-      $('#scoreForm').hide();
-      $('#highScore').fadeIn();
+      $('#scoreForm').hide(); //$('#highScore').fadeIn()
+
       $.ajax({
         type: 'POST',
         url: '/highscore',
@@ -481,7 +480,7 @@ var jeuBreaker = function jeuBreaker() {
 
           score >= 100 ? score -= 100 : score = 0; //----------------------------------------------
 
-          $('#metier > h2').text(score).css({
+          $('#metier > h2').text('SCORE: ' + score).css({
             'color': 'red',
             'font-size': '1.5em'
           }).fadeIn(375);
@@ -498,12 +497,13 @@ var jeuBreaker = function jeuBreaker() {
         }
 
         brickBroken();
+        $('#metier > h2').text('SCORE: ' + score).fadeIn();
         jeuTermine();
 
         if (clickMove == false && fuse == 1) {
           animMoveBall();
           window.document.removeEventListener('click', animMoveBall, true);
-          $('#metier > h2').text(score).css({
+          $('#metier > h2').text('SCORE: ' + score).css({
             'color': 'black',
             'font-size': '1.5em'
           }).fadeIn(375);

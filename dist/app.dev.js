@@ -227,7 +227,7 @@ app.get('/giftedADHD', function (req, res) {
   console.log(req.session);
 });
 app.get('/highscore', urlencodedParser, function (req, res) {
-  conMysql.query('select name, score from portfolio.highscore order by score desc limit 10', function (error, results, fields) {
+  conMysql.query('select name, score from portfolio.highscore order by score desc', function (error, results, fields) {
     if (error) throw error;
     console.log(results);
     res.send(results);
@@ -238,10 +238,10 @@ app.post('/highscore', urlencodedParser, function (req, res) {
   var score = req.body.score;
   console.log(req.body.name + 'score: ' + req.body.score);
   console.log(req.body);
-  conMysql.query('insert into portfolio.highscore values (?,?);', [name, score], function (error, ok) {
+  conMysql.query('insert into portfolio.highscore values (?,?)', [name, score], function (error, ok) {
     if (error) throw error;
     console.log(ok);
-    conMysql.query('select name, score from portfolio.highscore order by score desc limit 10', function (error, results, fields) {
+    conMysql.query('select name, score from portfolio.highscore order by score desc', function (error, results, fields) {
       if (error) throw error;
       console.log(results);
       /*res.render('index.pug', {

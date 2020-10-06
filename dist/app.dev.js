@@ -149,8 +149,12 @@ var conMysql = mysql.createConnection({
 
 });
 conMysql.connect(function (err) {
-  if (err) throw err;
-  console.log('connected');
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+
+  console.log('connected as id ' + conMysql.threadId);
 }); //APP.GET_________________________________________________________________
 
 app.get('/', function (req, res) {
@@ -228,7 +232,11 @@ app.get('/giftedADHD', function (req, res) {
 });
 app.get('/highscore', urlencodedParser, function (req, res) {
   conMysql.query('select name, score from portfolio.highscore order by score desc', function (error, results, fields) {
-    if (error) throw error;
+    if (error) {
+      console.error('error connecting: ' + error.stack);
+      return;
+    }
+
     console.log(results);
     res.send(results);
   });
@@ -239,21 +247,19 @@ app.post('/highscore', urlencodedParser, function (req, res) {
   console.log(req.body.name + 'score: ' + req.body.score);
   console.log(req.body);
   conMysql.query('insert into portfolio.highscore values (?,?)', [name, score], function (error, ok) {
-    if (error) throw error;
+    if (error) {
+      console.error('error connecting: ' + error.stack);
+      return;
+    }
+
     console.log(ok);
     conMysql.query('select name, score from portfolio.highscore order by score desc', function (error, results, fields) {
-      if (error) throw error;
-      console.log(results);
-      /*res.render('index.pug', {
-              results
-          },
-          function (error, html) {
-              if (error) {
-                  return
-              }
-              res.send(html)
-          })*/
+      if (error) {
+        console.error('error connecting: ' + error.stack);
+        return;
+      }
 
+      console.log(results);
       res.send(results);
     });
   });

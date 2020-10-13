@@ -1,0 +1,24 @@
+Thu Oct 07 2021 20:03:44 GMT+0200 (GMT+02:00)[2020-10-07T20:04:15.383] [TRACE] file - Uw8IfHUsRvd3uMbWNqq9TbJc
+[2020-10-07T20:04:15.384] [TRACE] file - Session {
+  cookie: {
+    path: '/',
+    _expires: 2021-01-05T18:04:15.380Z,
+    originalMaxAge: 7775999999,
+    httpOnly: true
+  },
+  views: { '/': 212, '/cv': 85, '/giftedADHD': 74 },
+  horodate: 2020-10-07T20:04:15.374Z,
+  ip: '86.247.252.92',
+  geoloc: {
+    range: [ 1459091456, 1459093503 ],
+    country: 'FR',
+    region: 'IDF',
+    eu: '1',
+    timezone: 'Europe/Paris',
+    city: 'Paris',
+    ll: [ 48.8543, 2.3527 ],
+    metro: 0,
+    area: 1
+  },
+  __lastAccess: 1602093855381
+}

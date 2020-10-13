@@ -1,5 +1,5 @@
 const { urlencoded } = require('express')
-
+//Formatage mois jour heure minutes secondes sur 2 char
 Date.prototype.getMonthFormatted = function () {
     var month = this.getMonth() + 1
     return month < 10 ? '0' + month : month
@@ -137,19 +137,32 @@ if (app.get('env') === 'production') {
 }
 
 //mysql
-var conMysql = mysql.createConnection({
-    host: 'localhost',
-    user: 'webuser',
-    password: 'azerty' //local=azerty online=iop
-})
+var conMysql
 
-conMysql.connect(function (err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack)
-        return
-    }
-    console.log('connected as id ' + conMysql.threadId)
-})
+function handleDisconnect() {
+    var conMysql = mysql.createConnection({
+        host: 'localhost',
+        user: 'webuser',
+        password: 'azerty' //local=azerty online=iop
+    })
+
+    conMysql.connect(function (err) {
+        if (err) {
+            console.error('error connecting: ' + err.stack)
+            setTimeout(handleDisconnect, 2000)
+        }
+        console.log('connected as id ' + conMysql.threadId)
+    })
+
+    conMysql.on('error', function (err) {
+        console.log('connection lost: ', err)
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+            handleDisconnect()
+        }
+        else throw err
+    })
+}
+handleDisconnect()
 
 //APP.GET_________________________________________________________________
 app.get('/', (req, res) => {
@@ -229,7 +242,6 @@ app.get('/highscore', urlencodedParser, (req, res) => {
     conMysql.query('select name, score from portfolio.highscore order by score desc', function (error, results, fields) {
         if (error) {
             console.error('error connecting: ' + error.stack)
-            return
         }
         console.log(results)
         res.send(results)
@@ -243,13 +255,11 @@ app.post('/highscore', urlencodedParser, (req, res) => {
     conMysql.query('insert into portfolio.highscore values (?,?)', [name, score], function (error, ok) {
         if (error) {
             console.error('error connecting: ' + error.stack)
-            return
         }
         console.log(ok)
         conMysql.query('select name, score from portfolio.highscore order by score desc', function (error, results, fields) {
             if (error) {
                 console.error('error connecting: ' + error.stack)
-                return
             }
             console.log(results)
             res.send(results)

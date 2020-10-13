@@ -137,8 +137,6 @@ if (app.get('env') === 'production') {
 }
 
 //mysql
-var conMysql
-
 function handleDisconnect() {
     var conMysql = mysql.createConnection({
         host: 'localhost',

@@ -137,8 +137,9 @@ if (app.get('env') === 'production') {
 }
 
 //mysql
+var conMysql
 function handleDisconnect() {
-    var conMysql = mysql.createConnection({
+    conMysql = mysql.createConnection({
         host: 'localhost',
         user: 'webuser',
         password: 'azerty' //local=azerty online=iop

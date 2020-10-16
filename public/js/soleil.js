@@ -251,96 +251,121 @@ const monIntro = function () {
     let i = 4
 
     var moveCloud = function () {
-        idCloud = requestAnimationFrame(moveCloud)
-        if (parseFloat(imgCloud.style.left) > -1050) {
-            imgCloud.style.left = parseFloat(imgCloud.style.left) - 0.2 + 'px'
-        }
-        else {
-            imgCloud.style.left = '700px'
-        }
+        if (delta > interval) {
+            //code for
+            idCloud = requestAnimationFrame(moveCloud)
+            if (parseFloat(imgCloud.style.left) > -1050) {
+                imgCloud.style.left = parseFloat(imgCloud.style.left) - 0.2 + 'px'
+            }
+            else {
+                imgCloud.style.left = '700px'
 
+            }
+        }
     }
 
     var animBird = function () {
         idBird = requestAnimationFrame(animBird)
-        if (bool3 == false) {
-            imgBird.style.left = '0px'
-            bool3 = true
-        }
-        else {
-            if (parseFloat(imgBird.style.left) > -65) {
-                imgBird.style.left = parseFloat(imgBird.style.left) - 24 + 'px'
+        if (delta > interval) {
+            //code for
+            if (bool3 == false) {
+                imgBird.style.left = '0px'
+                bool3 = true
             }
-            else bool3 = false
+            else {
+                if (parseFloat(imgBird.style.left) > -65) {
+                    imgBird.style.left = parseFloat(imgBird.style.left) - 24 + 'px'
+                }
+                else bool3 = false
+            }
         }
     }
 
     var sonicBored = function () {
-        idB = requestAnimationFrame(sonicBored)
-        if (bool1 == false) {
-            imgSonic.style.left = '-55px'
-            imgSonic.style.top = '-21px'
-            bool1 = true
-        }
-        else {
-            if (parseFloat(imgSonic.style.left) > -200) {
-                imgSonic.style.left = parseFloat(imgSonic.style.left) - 49 + 'px'
+        idBird = requestAnimationFrame(animBird)
+        if (delta > interval) {
+            //code for
+            idB = requestAnimationFrame(sonicBored)
+            if (bool1 == false) {
+                imgSonic.style.left = '-55px'
+                imgSonic.style.top = '-21px'
+                bool1 = true
             }
-            else bool1 = false
+            else {
+                if (parseFloat(imgSonic.style.left) > -200) {
+                    imgSonic.style.left = parseFloat(imgSonic.style.left) - 49 + 'px'
+                }
+                else bool1 = false
+            }
         }
     }
 
     var sonicWalk = function () {
         idW = requestAnimationFrame(sonicWalk)
-        if (bool2 == false) {
-            imgSonic.style.left = '-50px'
-            imgSonic.style.top = '-95px'
-            bool2 = true
-        }
-        else {
-            if (parseFloat(imgSonic.style.left) > -200) {
-                imgSonic.style.left = parseFloat(imgSonic.style.left) - 49 + 'px'
+
+        if (delta > interval) {
+            //code for
+            if (bool2 == false) {
+                imgSonic.style.left = '-50px'
+                imgSonic.style.top = '-95px'
+                bool2 = true
             }
-            else bool2 = false
+            else {
+                if (parseFloat(imgSonic.style.left) > -200) {
+                    imgSonic.style.left = parseFloat(imgSonic.style.left) - 49 + 'px'
+                }
+                else bool2 = false
+            }
         }
     }
-
 
     var moveSonicRight = function () {
         idM = requestAnimationFrame(moveSonicRight)
-        if (parseFloat(divSonic.style.left) < 100) {
-            divSonic.style.left = parseFloat(divSonic.style.left) + 0.2 + '%'
-            divBird.style.left = parseFloat(divBird.style.left) + 0.2 + '%'
-        }
-        else {
-            divSonic.style.left = '-10%'
-            divBird.style.left = '-15%'
+
+        if (delta > interval) {
+            //code for
+            if (parseFloat(divSonic.style.left) < 100) {
+                divSonic.style.left = parseFloat(divSonic.style.left) + 0.2 + '%'
+                divBird.style.left = parseFloat(divBird.style.left) + 0.2 + '%'
+            }
+            else {
+                divSonic.style.left = '-10%'
+                divBird.style.left = '-15%'
+            }
         }
     }
-
 
     var back = false
     var cpt = 0
     var monkeyDown = function () {
         idMD = requestAnimationFrame(monkeyDown)
-        if (parseFloat(imgMonkey.style.left) <= 0 && !back) {
-            imgMonkey.style.left = parseFloat(imgMonkey.style.left) + 105.52 + 'px'
-            cpt++
-        }
-        else {
-            back = true
+        if (delta > interval) {
+            //code for
+
+            if (parseFloat(imgMonkey.style.left) <= 0 && !back) {
+                imgMonkey.style.left = parseFloat(imgMonkey.style.left) + 105.52 + 'px'
+                cpt++
+            }
+            else {
+                back = true
+            }
         }
     }
+
     var monkeyUp = function () {
         idMU = requestAnimationFrame(monkeyUp)
-        if (cpt > 0) {
-            imgMonkey.style.left = parseFloat(imgMonkey.style.left) - 105.52 + 'px'
-            cpt--
-        }
-        else {
-            back = false
+        if (delta > interval) {
+            //code for
+            if (cpt > 0) {
+                imgMonkey.style.left = parseFloat(imgMonkey.style.left) - 105.52 + 'px'
+                cpt--
+            }
+            else {
+                back = false
+            }
         }
     }
+
     var c00rdX = 20
     var c00rdY = 2
 
@@ -360,8 +385,8 @@ const monIntro = function () {
 
     //snowback control
     let snowBack = document.getElementById('snowB')
-    idBird = requestAnimationFrame(animBird)
-    idCloud = requestAnimationFrame(moveCloud)
+    animBird()
+    moveCloud()
 
     //FPS control
     var fps = 60,
@@ -396,7 +421,7 @@ const monIntro = function () {
                         $('#moon').fadeOut(1000)
                         break
                     case 52:
-                        idMD = requestAnimationFrame(monkeyDown)
+                        idMD = monkeyDown()
                         cancelAnimationFrame(idB)
                         idW = sonicWalk()
                         idM = moveSonicRight()

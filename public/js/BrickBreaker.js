@@ -258,8 +258,8 @@ const jeuBreaker = function () {
         setInterval(animSprite, 50)
 
         var animMoveBall = function () {
-            requestAnimationFrame(moveBall)
             clickMove = false
+            moveBall()
         }
         /*
         var animSpriteR = function() {
@@ -380,7 +380,7 @@ const jeuBreaker = function () {
                 $('.background').css('height', '1400px')
             }
         }
-        
+
         //requete AJAX submit score
         $('#scoreForm').on('submit', function (event) {
             event.preventDefault()
@@ -418,98 +418,112 @@ const jeuBreaker = function () {
                 }
             })
         })
-        
-        
+
+        //FPS control
+        var fps = 60;
+        var now;
+        var then = Date.now();
+        var interval = 1000 / fps;
+        var delta;
+
         //_____________________MAIN()_____Déplacement_balle_dans_Environnement__________________________
         var moveBall = function () {
-            var ballSpeed = 2
-            window.document.addEventListener('mousemove', movepaddle, true)
-            if (!youwin || !clickMove) {
-                divSprite.style.top = ballY + 'px'
-                //ball move left right limit
-                if (ballX < competences.offsetLeft + competences.offsetWidth - divSprite.offsetWidth && !ballLeft) {
-                    //idR = requestAnimationFrame(animSpriteR)
-                    if (angle) {
-                        ballX = ballX + 1 * ballSpeed
-                        divSprite.style.left = ballX + 'px'
-                    } else {
-                        ballX = ballX + 2 * ballSpeed
-                        divSprite.style.left = ballX + 'px'
-                    }
-                } else if (ballX > competences.offsetLeft) {
-                    ballLeft = true
-                    //idL = requestAnimationFrame(animSprite)
-                    if (angle) {
-                        ballX = ballX - 1 * ballSpeed
-                        divSprite.style.left = ballX + 'px'
-                    } else {
-                        ballX = ballX - 2 * ballSpeed
-                        divSprite.style.left = ballX + 'px'
-                    }
-                } else {
-                    ballLeft = false
-                    play(pongA)
-                }
-                //ball move up down limit
-                if (ballY >= competences.offsetTop && !ballDown) {
-                    ballY = ballY - 2 * ballSpeed
+            idAni = requestAnimationFrame(moveBall)
+
+            //fps control
+            now = Date.now()
+            delta = now - then
+            if (delta > interval) {
+                then = now - (delta % interval)
+
+                //code for drawing the frame    
+                var ballSpeed = 2
+                window.document.addEventListener('mousemove', movepaddle, true)
+                if (!youwin || !clickMove) {
                     divSprite.style.top = ballY + 'px'
-                } else if (ballY < competences.offsetTop + competences.offsetHeight - 30) {
-                    ballDown = true
-                    ballY = ballY + 2 * ballSpeed
-                    divSprite.style.top = ballY + 'px'
-                    if (ballY + divSprite.offsetHeight > linkedIn.offsetTop && ballY < linkedIn.offsetTop + 5)
-                    paddle()
-                } else {
-                    ballDown = false
-                    clickMove = true
-                    combo = 1
-                    //------------Short hand style if---------------
-                    score >= 100 ? score -= 100 : score = 0
-                    //----------------------------------------------
-                    $('#metier > h2').text('SCORE: ' + score).css({
-                        'color': 'red',
-                        'font-size': '1.5em'
-                    }).fadeIn(375)
-                    combo = 1
-                    play(miss)
+                    //ball move left right limit
+                    if (ballX < competences.offsetLeft + competences.offsetWidth - divSprite.offsetWidth && !ballLeft) {
+                        //idR = requestAnimationFrame(animSpriteR)
+                        if (angle) {
+                            ballX = ballX + 1 * ballSpeed
+                            divSprite.style.left = ballX + 'px'
+                        } else {
+                            ballX = ballX + 2 * ballSpeed
+                            divSprite.style.left = ballX + 'px'
+                        }
+                    } else if (ballX > competences.offsetLeft) {
+                        ballLeft = true
+                        //idL = requestAnimationFrame(animSprite)
+                        if (angle) {
+                            ballX = ballX - 1 * ballSpeed
+                            divSprite.style.left = ballX + 'px'
+                        } else {
+                            ballX = ballX - 2 * ballSpeed
+                            divSprite.style.left = ballX + 'px'
+                        }
+                    } else {
+                        ballLeft = false
+                        play(pongA)
+                    }
+                    //ball move up down limit
+                    if (ballY >= competences.offsetTop && !ballDown) {
+                        ballY = ballY - 2 * ballSpeed
+                        divSprite.style.top = ballY + 'px'
+                    } else if (ballY < competences.offsetTop + competences.offsetHeight - 30) {
+                        ballDown = true
+                        ballY = ballY + 2 * ballSpeed
+                        divSprite.style.top = ballY + 'px'
+                        if (ballY + divSprite.offsetHeight > linkedIn.offsetTop && ballY < linkedIn.offsetTop + 5)
+                            paddle()
+                    } else {
+                        ballDown = false
+                        clickMove = true
+                        combo = 1
+                        //------------Short hand style if---------------
+                        score >= 100 ? score -= 100 : score = 0
+                        //----------------------------------------------
+                        $('#metier > h2').text('SCORE: ' + score).css({
+                            'color': 'red',
+                            'font-size': '1.5em'
+                        }).fadeIn(375)
+                        combo = 1
+                        play(miss)
+                    }
+                    if (ballX + divSprite.offsetWidth > competences.offsetLeft + competences.offsetWidth) {
+                        play(pongA)
+                    }
+                    if (ballY < competences.offsetTop) {
+                        play(pongA)
+                    }
+                    brickBroken()
+                    $('#metier > h2').text('SCORE: ' + score).fadeIn()
+                    jeuTermine()
+
+                    if (clickMove == false && fuse == 1) {
+                        //animMoveBall()
+                        //window.document.removeEventListener('click', animMoveBall, true)
+                        $('#metier > h2').text('SCORE: ' + score).css({
+                            'color': 'black',
+                            'font-size': '1.5em'
+                        }).fadeIn(375)
+                    } else {
+                        cancelAnimationFrame(idAni)
+                        window.document.addEventListener('click', animMoveBall, true)
+                    }
+
+                    if (stopEvent) {
+                        window.document.removeEventListener('click', animMoveBall, true)
+                        //cancelAnimationFrame(idAni)
+                        //cancelAnimationFrame(idL)
+                        window.document.removeEventListener('mousemove', movepaddle, true)
+                        window.document.removeEventListener('click', eTouchStart, true)
+                        window.document.removeEventListener('click', eTouchMove, true)
+                    }
+
                 }
-                if (ballX + divSprite.offsetWidth > competences.offsetLeft + competences.offsetWidth) {
-                    play(pongA)
-                }
-                if (ballY < competences.offsetTop) {
-                    play(pongA)
-                }
-                brickBroken()
-                $('#metier > h2').text('SCORE: ' + score).fadeIn()
-                jeuTermine()
-                
-                if (clickMove == false && fuse == 1) {
-                    animMoveBall()
-                    window.document.removeEventListener('click', animMoveBall, true)
-                    $('#metier > h2').text('SCORE: ' + score).css({
-                        'color': 'black',
-                        'font-size': '1.5em'
-                    }).fadeIn(375)
-                } else {
-                    window.document.addEventListener('click', animMoveBall, true)
-                }
-                
-                if (stopEvent) {
-                    window.document.removeEventListener('click', animMoveBall, true)
-                    cancelAnimationFrame(idAni)
-                    cancelAnimationFrame(idL)
-                    cancelAnimationFrame(animMoveBall)
-                    cancelAnimationFrame(moveBall)
-                    window.document.removeEventListener('mousemove', movepaddle, true)
-                    window.document.removeEventListener('click', eTouchStart, true)
-                    window.document.removeEventListener('click', eTouchMove, true)
-                }
-            
             }
         }
-        //_______________________________________Animation_Déplacement_Balle__________________________________________________________
-        idAni = requestAnimationFrame(moveBall)
+        moveBall()
     }
 }
 //_______________________________________Exec_jeuBreaker___________________________________________________________________________________

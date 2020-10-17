@@ -251,9 +251,9 @@ const monIntro = function () {
     let i = 4
 
     var moveCloud = function () {
+        idCloud = requestAnimationFrame(moveCloud)
         if (delta > interval) {
             //code for
-            idCloud = requestAnimationFrame(moveCloud)
             if (parseFloat(imgCloud.style.left) > -1050) {
                 imgCloud.style.left = parseFloat(imgCloud.style.left) - 0.2 + 'px'
             }

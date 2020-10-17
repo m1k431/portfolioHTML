@@ -276,12 +276,10 @@ var monIntro = function monIntro() {
   };
 
   var sonicBored = function sonicBored() {
-    idBird = requestAnimationFrame(animBird);
+    idB = requestAnimationFrame(sonicBored);
 
     if (delta > interval) {
       //code for
-      idB = requestAnimationFrame(sonicBored);
-
       if (bool1 == false) {
         imgSonic.style.left = '-55px';
         imgSonic.style.top = '-21px';
@@ -414,39 +412,37 @@ var monIntro = function monIntro() {
           case 52:
             idMD = monkeyDown();
             cancelAnimationFrame(idB);
-            idW = sonicWalk();
-            idM = moveSonicRight();
+            sonicWalk();
+            moveSonicRight();
             snowBack.play();
             break;
 
           case 62:
             cancelAnimationFrame(idMD);
-            idMU = monkeyUp();
+            monkeyUp();
             break;
 
           case 78:
             cancelAnimationFrame(idMU);
-            idMD = monkeyDown();
+            monkeyDown();
             break;
 
           case 90:
             cancelAnimationFrame(idMD);
-            idMU = monkeyUp();
+            monkeyUp();
             break;
 
           case 95:
             cancelAnimationFrame(idM);
             cancelAnimationFrame(idW);
-            idB = sonicBored();
+            sonicBored();
             $('#space').animate({
               backgroundColor: '#000000'
             }, 500);
             break;
 
           case 100:
-            cancelAnimationFrame(idB);
-            cancelAnimationFrame(idMU); //cancelAnimationFrame(idCloud)
-
+            cancelAnimationFrame(idMU);
             snowBack.pause();
             break;
 

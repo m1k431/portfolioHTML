@@ -237,6 +237,23 @@ app.get('/giftedADHD', (req, res) => {
     console.log(req.session)
 })
 
+app.get('/leaflet', (req, res) => {
+    //VIEWS
+    if (!req.session.views) {
+        req.session.views = {}
+    }
+    pathname = parseurl(req).pathname
+    req.session.views[pathname] = (req.session.views[pathname] || 0) + 1
+    //horodate last visite
+    req.session.horodate = new Date()
+    //fix UTC+2 hours
+    req.session.horodate.setUTCHours(req.session.horodate.getHours())
+    res.render('leaflet.html', {})
+    //LOGGER
+    logger.trace(req.session)
+    console.log(req.session)
+})
+
 app.get('/highscore', urlencodedParser, (req, res) => {
     conMysql.query('select name, score from portfolio.highscore order by score desc', function (error, results, fields) {
         if (error) {

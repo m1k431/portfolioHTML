@@ -119,6 +119,7 @@ const monIntro = function () {
     m4m3r.height = 400
     m4m3r.style.width = '100%'
     m4m3r.style.height = '100%'
+    m4m3r.style.top = '20px'
     m4m3r.id = 'm0nC4nvaM3r'
     m4m3r.style.position = 'absolute'
     m4m3r.style.display = 'block'
@@ -128,43 +129,46 @@ const monIntro = function () {
     m4colline.width = 600
     m4colline.height = 400
     m4colline.style.width = '100%'
-    m4colline.style.height = '100%'
+    m4colline.style.height = '70%'
     m4colline.id = 'm0nC4nvaC0lline'
     m4colline.style.display = 'block'
     m4colline.style.position = 'absolute'
+    m4colline.style.top = '100px'
     m0nsoleil.appendChild(m4colline)
     //var m0n4tari = document.createElement('img')
     //m0n4tari.id = 'a7ari'
     //m0n4tari.style.position = 'absolute'
     //m0nsoleil.appendChild(m0n4tari)
+    
     //meeeeeeeeeeeeer
-    var ctx2M4col = m4m3r.getContext('2d')
-    var gradientm3r = ctx2M4col.createLinearGradient(0, 0, 0, 600)
+    var mer = m4m3r.getContext('2d')
+    var gradientm3r = mer.createLinearGradient(0, 0, 0, 600)
     gradientm3r.addColorStop(0, 'darkblue')
     gradientm3r.addColorStop(1, 'darkblue')
-    ctx2M4col.fillStyle = gradientm3r
-    ctx2M4col.beginPath()
-    ctx2M4col.moveTo(0, 600)
-    ctx2M4col.lineTo(600, 400)
-    ctx2M4col.lineTo(600, 170)
-    ctx2M4col.bezierCurveTo(170, 178, 650, 172, 0, 170)
-    ctx2M4col.closePath()
-    ctx2M4col.stroke()
-    ctx2M4col.fill()
+    mer.fillStyle = gradientm3r
+    mer.beginPath()
+    mer.moveTo(0, 600)
+    mer.lineTo(600, 400)
+    mer.lineTo(600, 170)
+    mer.bezierCurveTo(170, 178, 650, 172, 0, 170)
+    mer.closePath()
+    mer.stroke()
+    mer.fill()
+
     //C00000000000000000000000000000llllllllllllllllOLLLLIIIIIINNNNNNE 1
-    var ctxM4col = m4colline.getContext('2d')
-    var gradientC0lline = ctxM4col.createLinearGradient(0, 0, 0, 600)
+    var colline = m4colline.getContext('2d')
+    var gradientC0lline = colline.createLinearGradient(0, 0, 0, 600)
     gradientC0lline.addColorStop(0, 'yellow')
     gradientC0lline.addColorStop(0.8, 'black')
-    ctxM4col.fillStyle = gradientC0lline
-    ctxM4col.beginPath()
-    ctxM4col.moveTo(0, 400)
-    ctxM4col.lineTo(600, 400)
-    ctxM4col.lineTo(600, 260)
-    ctxM4col.bezierCurveTo(150, 150, 250, 130, 0, 200)
-    ctxM4col.closePath()
-    ctxM4col.stroke()
-    ctxM4col.fill()
+    colline.fillStyle = gradientC0lline
+    colline.beginPath()
+    colline.moveTo(0, 400)
+    colline.lineTo(600, 400)
+    colline.lineTo(600, 260)
+    colline.bezierCurveTo(150, 150, 250, 130, 0, 200)
+    colline.closePath()
+    colline.stroke()
+    colline.fill()
 
     //SONIC PALM TREEEEEEEE
     var divMonkey = document.createElement('div')

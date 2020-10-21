@@ -5269,3 +5269,28 @@ Mon Oct 18 2021 18:59:14 GMT+0200 (GMT+02:00)[2020-10-18T18:59:17.788] [TRACE] f
   __lastAccess: 1603275308973,
   ip: '86.247.78.60'
 }
+[2020-10-21T12:19:39.803] [TRACE] file - J4XWGbOWR5iWWIu8mtMsQa6B
+[2020-10-21T12:19:39.803] [TRACE] file - Session {
+  cookie: {
+    path: '/',
+    _expires: 2021-01-19T10:19:39.802Z,
+    originalMaxAge: 7776000000,
+    httpOnly: true,
+    SameSite: 'Lax'
+  },
+  views: { '/': 1 },
+  horodate: 2020-10-21T12:19:39.798Z,
+  ip: '1.34.18.123',
+  geoloc: {
+    range: [ 19009536, 19011583 ],
+    country: 'TW',
+    region: 'TAO',
+    eu: '0',
+    timezone: 'Asia/Taipei',
+    city: 'Taoyuan District',
+    ll: [ 24.9889, 121.3176 ],
+    metro: 0,
+    area: 1
+  },
+  __lastAccess: 1603275579802
+}

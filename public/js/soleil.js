@@ -103,7 +103,7 @@ const monIntro = function () {
     imgCloud.id = 'cloud'
     imgCloud.className = 'cloud'
     imgCloud.style.position = 'absolute'
-    imgCloud.style.left = '700px'
+    imgCloud.style.left = '600px'
     imgCloud.style.top = '-460px'
     imgCloud.style.height = '200%'
     imgCloud.src = '/static/img/cloud.png'
@@ -391,7 +391,6 @@ const monIntro = function () {
     var c00rdY = 2
     animBird()
     moveCloud()
-    $('#moon').hide()
     $('#space').animate({
         backgroundColor: '#000000'
     }, 1000)
@@ -418,17 +417,17 @@ const monIntro = function () {
                 ctx.clearRect(0, 0, 40, 40)
                 ctxLune.clearRect(0, 0, 40, 40)
                 switch (c00rdX) {
-                    case 40:
+                    case 30:
                         $('#space').animate({
                             backgroundColor: '#0a15db'
-                        }, 1000)
+                        }, 3000)
                         break
-                    case 45:
+                    case 40:
+                        $('#moon').fadeOut(3000)
                         cancelAnimationFrame(idW)
                         cancelAnimationFrame(idM)
                         break
                     case 52:
-                        $('#moon').fadeOut(1000)
                         idMD = monkeyDown()
                         cancelAnimationFrame(idB)
                         sonicWalk()
@@ -453,14 +452,14 @@ const monIntro = function () {
                         sonicBored()
                         break
                     case 100:
-                        $('#moon').fadeIn(500)
+                        $('#moon').fadeIn(3000)
                         cancelAnimationFrame(idMU)
                         snowBack.pause()
                         break
                     case 105:
                         $('#space').animate({
                             backgroundColor: '#000000'
-                        }, 1000)
+                        }, 3000)
                         break
                 }
                 ctx.fillRect(0, 0, 40, 40)

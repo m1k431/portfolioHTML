@@ -24,7 +24,7 @@ const monIntro = function () {
     $('#INDEX').fadeIn(100)
     $('#m0ncentrage').fadeIn(100)
 
-
+    //ELEMENTS HTML---------------------------------------------------------------
     //DIV SOLEILLLLLLLLL
     var m0nsoleil = document.getElementById('s0leil')
     m0nsoleil.style.position = 'relative'
@@ -56,8 +56,6 @@ const monIntro = function () {
     var m0nimg = document.createElement('img')
     m0nimg.style.position = 'relative'
     m0nimg.src = '/static/img/Atari.webp'
-    //m0nimg.style.top = '36%'
-    //m0nimg.style.right = '6%'
     m0nimg.id = 'atari'
     //Cielllllllllllll
     var m0nCiel = document.createElement('canvas')
@@ -72,18 +70,17 @@ const monIntro = function () {
     m0nCiel.id = 'ci3l'
     m0nsoleil.appendChild(m0nCiel)
     //space
-    var myStars = document.createElement('canvas')
-    myStars.width = 600
-    myStars.height = 400
-    myStars.style.width = '100%'
-    myStars.style.height = '100%'
-    myStars.id = 'space'
-    myStars.style.position = 'absolute'
-    //myStars.style.display = 'none'
-    myStars.style.borderRadius = '10px'
-    myStars.style.top = '0px'
-    myStars.style.left = '0px'
-    m0nsoleil.appendChild(myStars)
+    var cielNuit = document.createElement('canvas')
+    cielNuit.width = 600
+    cielNuit.height = 400
+    cielNuit.style.width = '100%'
+    cielNuit.style.height = '100%'
+    cielNuit.id = 'space'
+    cielNuit.style.position = 'absolute'
+    cielNuit.style.borderRadius = '10px'
+    cielNuit.style.top = '0px'
+    cielNuit.style.left = '0px'
+    m0nsoleil.appendChild(cielNuit)
     //soleil
     var m0nCanva = document.createElement('canvas')
     m0nCanva.width = 40
@@ -98,7 +95,6 @@ const monIntro = function () {
     maLune.height = 40
     maLune.style.width = '50px'
     maLune.id = 'moon'
-    //maLune.style.display = 'none'
     maLune.style.position = 'absolute'
     maLune.style.top = '30px'
     maLune.style.right = '10%'
@@ -119,7 +115,7 @@ const monIntro = function () {
     m4m3r.height = 400
     m4m3r.style.width = '100%'
     m4m3r.style.height = '100%'
-    m4m3r.style.top = '20px'
+    m4m3r.style.top = '40px'
     m4m3r.id = 'm0nC4nvaM3r'
     m4m3r.style.position = 'absolute'
     m4m3r.style.display = 'block'
@@ -135,16 +131,13 @@ const monIntro = function () {
     m4colline.style.position = 'absolute'
     m4colline.style.top = '100px'
     m0nsoleil.appendChild(m4colline)
-    //var m0n4tari = document.createElement('img')
-    //m0n4tari.id = 'a7ari'
-    //m0n4tari.style.position = 'absolute'
-    //m0nsoleil.appendChild(m0n4tari)
-    
-    //meeeeeeeeeeeeer
+
+    //STYLE des éléments HTML---------------------------------------------------------
+    //mer
     var mer = m4m3r.getContext('2d')
     var gradientm3r = mer.createLinearGradient(0, 0, 0, 600)
-    gradientm3r.addColorStop(0, 'darkblue')
-    gradientm3r.addColorStop(1, 'darkblue')
+    gradientm3r.addColorStop(0, 'blue')
+    gradientm3r.addColorStop(0.7, 'cyan')
     mer.fillStyle = gradientm3r
     mer.beginPath()
     mer.moveTo(0, 600)
@@ -155,7 +148,7 @@ const monIntro = function () {
     mer.stroke()
     mer.fill()
 
-    //C00000000000000000000000000000llllllllllllllllOLLLLIIIIIINNNNNNE 1
+    //Colline
     var colline = m4colline.getContext('2d')
     var gradientC0lline = colline.createLinearGradient(0, 0, 0, 600)
     gradientC0lline.addColorStop(0, 'yellow')
@@ -170,7 +163,22 @@ const monIntro = function () {
     colline.stroke()
     colline.fill()
 
-    //SONIC PALM TREEEEEEEE
+    //lune
+    var ctxLune = maLune.getContext('2d')
+    var gradientLune = ctxLune.createRadialGradient(16, 16, 16, 16, 16, 14)
+    gradientLune.addColorStop(0, 'transparent')
+    gradientLune.addColorStop(0.9, 'white')
+    ctxLune.fillStyle = gradientLune
+  
+    //soleil
+    var ctx = m0nCanva.getContext('2d')
+    var gradient = ctx.createRadialGradient(16, 16, 16, 16, 16, 14)
+    gradient.addColorStop(0, 'transparent')
+    gradient.addColorStop(0.9, 'yellow')
+    ctx.fillStyle = gradient
+
+
+    //SONIC PALM TREE
     var divMonkey = document.createElement('div')
     divMonkey.id = 'divMonkey'
     divMonkey.className = 'divMonkey'
@@ -179,7 +187,6 @@ const monIntro = function () {
     divMonkey.style.width = '95px'
     divMonkey.style.top = '20px'
     divMonkey.style.left = '59.55px'
-    //divMonkey.style.backgroundColor = 'rgba(105, 180, 72, 0.449)'
     divMonkey.style.overflow = 'hidden'
     var imgMonkey = document.createElement('img')
     imgMonkey.id = 'monkey'
@@ -188,15 +195,8 @@ const monIntro = function () {
     imgMonkey.style.height = '100%'
     imgMonkey.style.left = '-2215px'
     imgMonkey.src = '/static/img/monkey.png'
-    var imgSonicPalm = document.createElement('img')
-    imgSonicPalm.id = 'palmTree'
-    imgSonicPalm.className = 'palmTree'
-    imgSonicPalm.style.position = 'absolute'
-    imgSonicPalm.style.height = '65%'
-    imgSonicPalm.style.top = '0px'
-    imgSonicPalm.style.left = '5px'
-    imgSonicPalm.src = '/static/img/palmTree.png'
-    //SONICCCCCCCCC
+
+    //SONIC div
     var divSonic = document.createElement('div')
     divSonic.id = 'divSonic'
     divSonic.className = 'divsonic'
@@ -206,8 +206,17 @@ const monIntro = function () {
     divSonic.style.width = '48px'
     divSonic.style.top = '250px'
     divSonic.style.left = '-10%'
-    //divMonkey.style.backgroundColor = 'rgba(105, 180, 72, 0.449)'
     divSonic.style.overflow = 'hidden'
+    //SONIC img 1
+    var imgSonicPalm = document.createElement('img')
+    imgSonicPalm.id = 'palmTree'
+    imgSonicPalm.className = 'palmTree'
+    imgSonicPalm.style.position = 'absolute'
+    imgSonicPalm.style.height = '65%'
+    imgSonicPalm.style.top = '0px'
+    imgSonicPalm.style.left = '5px'
+    imgSonicPalm.src = '/static/img/palmTree.png'
+    //SONIC img 2
     var imgSonic = document.createElement('img')
     imgSonic.id = 'sonic'
     imgSonic.className = 'sonic'
@@ -215,6 +224,7 @@ const monIntro = function () {
     imgSonic.style.left = '-55px'
     imgSonic.style.top = '-21px'
     imgSonic.src = '/static/img/sonic2.png'
+
     //BIRD div
     var divBird = document.createElement('div')
     divBird.id = 'divBird'
@@ -226,7 +236,7 @@ const monIntro = function () {
     divBird.style.top = '240px'
     divBird.style.left = '-15%'
     divBird.style.overflow = 'hidden'
-    //bird img
+    //BIRD img
     var imgBird = document.createElement('img')
     imgBird.id = 'bird'
     imgBird.className = 'bird'
@@ -236,6 +246,7 @@ const monIntro = function () {
     imgBird.style.height = '100%'
     imgBird.src = '/static/img/twitter-bird-sprite.png'
 
+    //Ordre des calques
     m0nsoleil.appendChild(divMonkey)
     m0nsoleil.appendChild(imgSonicPalm)
     divMonkey.appendChild(imgMonkey)
@@ -248,12 +259,15 @@ const monIntro = function () {
     mon360.appendChild(src360)
     divAtari.appendChild(mon360)
     divAtari.appendChild(m0nimg)
+
+    //initialisation des variables de travail des fonctions et des id des animations
     var bool1 = false
     var bool2 = false
     var bool3 = false
     var idB, idW, idMU, idMD, idS, idM, idBird, idCloud
     let i = 4
 
+    //Fonctions animations sprites/img-----------------------------------------------
     var moveCloud = function () {
         idCloud = requestAnimationFrame(moveCloud)
         if (delta > interval) {
@@ -372,24 +386,14 @@ const monIntro = function () {
     var c00rdX = 20
     var c00rdY = 2
 
-    var ctxLune = maLune.getContext('2d')
-    var ctx = m0nCanva.getContext('2d')
-    //lune
-    var gradientLune = ctxLune.createRadialGradient(16, 16, 16, 16, 16, 14)
-    gradientLune.addColorStop(0, 'transparent')
-    gradientLune.addColorStop(0.9, 'white')
-    ctxLune.fillStyle = gradientLune
-    //soleil
-    var gradient = ctx.createRadialGradient(16, 16, 16, 16, 16, 14)
-    gradient.addColorStop(0, 'transparent')
-    gradient.addColorStop(0.9, 'yellow')
-    ctx.fillStyle = gradient
-    $('#moon').hide()
-
     //snowback control
     let snowBack = document.getElementById('snowB')
     animBird()
     moveCloud()
+    $('#moon').hide()
+    $('#space').animate({
+        backgroundColor: '#000000'
+    }, 1000)
 
     //FPS control
     var fps = 60,
@@ -398,6 +402,7 @@ const monIntro = function () {
         interval = 1000 / fps,
         delta
 
+    //BOUCLE PRINCIPALE---------------------------------------------------------------
     var dessinerM0n = (/*m0ntimestamp*/) => {
         requestAnimationFrame(dessinerM0n)
 
@@ -415,15 +420,17 @@ const monIntro = function () {
                 ctx.clearRect(0, 0, 40, 40)
                 ctxLune.clearRect(0, 0, 40, 40)
                 switch (c00rdX) {
-                    case 45:
+                    case 40:
                         $('#space').animate({
                             backgroundColor: '#0a15db'
-                        }, 500)
+                        }, 1000)
+                        break
+                    case 45:
                         cancelAnimationFrame(idW)
                         cancelAnimationFrame(idM)
-                        $('#moon').fadeOut(1000)
                         break
                     case 52:
+                        $('#moon').fadeOut(1000)
                         idMD = monkeyDown()
                         cancelAnimationFrame(idB)
                         sonicWalk()
@@ -446,16 +453,16 @@ const monIntro = function () {
                         cancelAnimationFrame(idM)
                         cancelAnimationFrame(idW)
                         sonicBored()
-                        $('#space').animate({
-                            backgroundColor: '#000000'
-                        }, 500)
                         break
                     case 100:
+                        $('#moon').fadeIn(500)
                         cancelAnimationFrame(idMU)
                         snowBack.pause()
                         break
                     case 105:
-                        $('#moon').fadeIn(500)
+                        $('#space').animate({
+                            backgroundColor: '#000000'
+                        }, 1000)
                         break
                 }
                 ctx.fillRect(0, 0, 40, 40)

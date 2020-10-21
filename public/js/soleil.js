@@ -16,7 +16,6 @@ const monIntro = function () {
     BtnJs0nPl4Y.click()
     $('#jugglejungle').fadeIn(100)
 
-
     //Blue/red menu button
     $('#intro').removeClass('css3button')
     $('#intro').addClass('css3buttonRed')
@@ -169,7 +168,7 @@ const monIntro = function () {
     gradientLune.addColorStop(0, 'transparent')
     gradientLune.addColorStop(0.9, 'white')
     ctxLune.fillStyle = gradientLune
-  
+
     //soleil
     var ctx = m0nCanva.getContext('2d')
     var gradient = ctx.createRadialGradient(16, 16, 16, 16, 16, 14)
@@ -379,22 +378,23 @@ const monIntro = function () {
             }
             else {
                 back = false
+
             }
         }
     }
 
+    //INITIALISATION ENVIRONNEMENT----------------------------------------------------
+    //snowback control play/pause
+    let snowBack = document.getElementById('snowB')
+    //coordonnées soleil
     var c00rdX = 20
     var c00rdY = 2
-
-    //snowback control
-    let snowBack = document.getElementById('snowB')
     animBird()
     moveCloud()
     $('#moon').hide()
     $('#space').animate({
         backgroundColor: '#000000'
     }, 1000)
-
     //FPS control
     var fps = 60,
         now,
@@ -405,14 +405,12 @@ const monIntro = function () {
     //BOUCLE PRINCIPALE---------------------------------------------------------------
     var dessinerM0n = (/*m0ntimestamp*/) => {
         requestAnimationFrame(dessinerM0n)
-
-        //fps
+        //FPS CONTROL
         now = Date.now()
         delta = now - then
         if (delta > interval) {
             then = now - (delta % interval)
-
-            //code for drawing the frame
+            //FPS CONTROL: code for drawing the frame BELOW
             if (c00rdX < 131) {
                 c00rdY = Math.cos(c00rdX / 24) * 54
                 m0nCanva.style.top = c00rdY * 1.1 + 60 + '%'

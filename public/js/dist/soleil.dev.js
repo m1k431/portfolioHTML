@@ -363,12 +363,14 @@ var monIntro = function monIntro() {
         back = false;
       }
     }
-  };
+  }; //INITIALISATION ENVIRONNEMENT----------------------------------------------------
+  //snowback control play/pause
+
+
+  var snowBack = document.getElementById('snowB'); //coordonnées soleil
 
   var c00rdX = 20;
-  var c00rdY = 2; //snowback control
-
-  var snowBack = document.getElementById('snowB');
+  var c00rdY = 2;
   animBird();
   moveCloud();
   $('#moon').hide();
@@ -385,13 +387,13 @@ var monIntro = function monIntro() {
   var dessinerM0n = function dessinerM0n()
   /*m0ntimestamp*/
   {
-    requestAnimationFrame(dessinerM0n); //fps
+    requestAnimationFrame(dessinerM0n); //FPS CONTROL
 
     now = Date.now();
     delta = now - then;
 
     if (delta > interval) {
-      then = now - delta % interval; //code for drawing the frame
+      then = now - delta % interval; //FPS CONTROL: code for drawing the frame BELOW
 
       if (c00rdX < 131) {
         c00rdY = Math.cos(c00rdX / 24) * 54;

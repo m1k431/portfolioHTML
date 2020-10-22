@@ -1,6 +1,8 @@
 "use strict";
 
 var jeuBreaker = function jeuBreaker() {
+  //Sections du cv
+
   /*$('#m0ncentrage').fadeIn(1000)
   $('#competen').fadeIn(500)
   $('#experiences').fadeIn(375)
@@ -53,25 +55,18 @@ var jeuBreaker = function jeuBreaker() {
     var start = './static/sound/start.mp3'; //ghibertoStyle
     //var start = './static/sound/ghibertoRJ45.mp3'
 
-    play(start); //var flagS = './static/sound/flagS.mp3'
-
+    play(start);
     var youWin = './static/sound/youWin.mp3';
     var miss = './static/sound/miss.mp3';
     var score = 0;
     var combo = 1;
-    var clickMove = false; //var moveWithPad = true
-
+    var clickMove = false;
     $('#scoreForm').hide();
     $('#highScore').hide();
     $('#complementaire').hide();
     $('#linkedIn').fadeIn(2000); //____________________INITIALISATION ENVIRONNEMENT________________________________________________________________
 
-    var competences = window.document.getElementById('competen'); //var animH = $('#competen').height()
-
-    /*$('#competen').animate({
-        height: animH + 150 + 'px'
-    }, 500)*/
-
+    var competences = window.document.getElementById('competen');
     $('#competen').toggleClass('competences');
     var informatique = window.document.getElementById('informatique');
     var commerciales = window.document.getElementById('commerciales');
@@ -81,8 +76,7 @@ var jeuBreaker = function jeuBreaker() {
     $div2blink.removeClass('backgroundRed');
     $div2blink.css('background-color', 'rgba(255, 255, 255, 0.4)');
     $('#metier > h2').text('SCORE: ' + score).fadeIn(375);
-    $('#metier > h2').css('font-size', '1.5em'); //var linkOff = $('#linkedIn').offset()
-    //________________________________________DIV FOOTBALL SPRITE_____________________________________________
+    $('#metier > h2').css('font-size', '1.5em'); //________________________________________DIV FOOTBALL SPRITE_____________________________________________
 
     var divSprite = window.document.createElement('div');
     divSprite.id = 'divSprite';
@@ -102,34 +96,7 @@ var jeuBreaker = function jeuBreaker() {
     imgSoccer.style.top = '-px';
     imgSoccer.src = '/static/img/soccerBall.png';
     imgSoccer.style.backgroundColor = 'none';
-    divSprite.appendChild(imgSoccer);
-    /*
-    //________________________________________DIV SPACE BALL SPRITE_____________________________________________
-    var divSprite = window.document.createElement('div')
-    divSprite.id = 'divSprite'
-    divSprite.className = 'divsprite'
-    divSprite.style.position = 'absolute'
-    divSprite.style.height = '20px'
-    divSprite.style.width = '20px'
-    divSprite.style.border = 'solid'
-    divSprite.style.borderWidth = '1px'
-    divSprite.style.borderRadius = '20px'
-    divSprite.style.overflow = 'hidden'
-    competences.appendChild(divSprite)
-    
-    //________________________________________SPACE Ball Sprite_________________________________________________
-    var imgSoccer = window.document.createElement('img')
-    imgSoccer.id = 'imgSoccer'
-    imgSoccer.className = 'imgsoccer'
-    imgSoccer.style.position = 'absolute'
-    imgSoccer.style.height = '500px'
-    imgSoccer.style.left = '-4px'
-    imgSoccer.style.top = '-142.5px'
-    imgSoccer.src = '/static/img/ball.png'
-    imgSoccer.style.backgroundColor = 'none'
-    divSprite.appendChild(imgSoccer)
-    */
-    //________________________________________Paddle + hauteur breaker_____________________________________
+    divSprite.appendChild(imgSoccer); //________________________________________Paddle + hauteur breaker_____________________________________
 
     linkedIn.className = 'linkedinT';
     window.document.getElementById('linkedIn').style.left = competences.offsetWidth / 2 - 40 + 'px';
@@ -233,8 +200,6 @@ var jeuBreaker = function jeuBreaker() {
       e.preventDefault(); // prevent default click behavior
     };
 
-    window.document.addEventListener('touchstart', eTouchStart, true);
-
     var eTouchMove = function eTouchMove(e) {
       touchobj = e.changedTouches[0]; // reference first touch point for this event
 
@@ -244,20 +209,12 @@ var jeuBreaker = function jeuBreaker() {
       e.preventDefault();
     };
 
+    window.document.addEventListener('touchstart', eTouchStart, true);
     window.document.addEventListener('touchmove', eTouchMove, true);
     bStart.removeEventListener('click', varsStart, true); //____________________________________ANIMATION_Ball_Sprite______________________________________
 
-    /*
-    var animSprite = function () {
-        if (parseFloat(imgSoccer.style.left) > -920) {
-            imgSoccer.style.left = parseFloat(imgSoccer.style.left) - 27.8 + 'px'
-        } else {
-            imgSoccer.style.left = -4 + 'px'
-        }
-        idL = requestAnimationFrame(animSprite)
-        */
-
     var animSprite = function animSprite() {
+      //idL = requestAnimationFrame(animSprite)
       if (parseFloat(imgSoccer.style.left) > -72) {
         imgSoccer.style.left = parseFloat(imgSoccer.style.left) - 39 + 'px';
       } else if (parseFloat(imgSoccer.style.top) > -50) {
@@ -267,13 +224,13 @@ var jeuBreaker = function jeuBreaker() {
         imgSoccer.style.left = -13 + 'px';
         imgSoccer.style.top = -18 + 'px';
       }
-    };
+    }; //gestion reprise jeu après click
 
-    setInterval(animSprite, 50);
 
     var animMoveBall = function animMoveBall() {
       clickMove = false;
-      moveBall();
+      idL = setInterval(animSprite, 60);
+      bouclePrincpale();
     };
     /*
     var animSpriteR = function() {
@@ -286,9 +243,8 @@ var jeuBreaker = function jeuBreaker() {
         cancelAnimationFrame(idL)
         idR = requestAnimationFrame(animSpriteR)
     }*/
+    //__________________________________Intéraction_balle/paddle_AngleBalle_______________________________________________________
 
-
-    idL = requestAnimationFrame(animSprite); //__________________________________Intéraction_balle/paddle_AngleBalle_______________________________________________________
 
     var paddle = function paddle() {
       if (ballX + divSprite.offsetWidth / 2 > linkedIn.offsetLeft && ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 2) {
@@ -344,22 +300,18 @@ var jeuBreaker = function jeuBreaker() {
 
         i--;
       }
-    };
+    }; //________________________________________________Verif/Gestion_YouWIN______________________________________________________________________________
 
-    var fuse = 1;
-    var stopEvent = false; //________________________________________________Verif/Gestion_YouWIN______________________________________________________________________________
 
     var jeuTermine = function jeuTermine() {
       var mesInfosT = window.document.getElementsByClassName('infoT');
       var competences = window.document.getElementById('competen');
 
       if (!mesInfosT.length && fuse == 1) {
-        fuse--; //cancelAnimationFrame(idR)
-
+        fuse--;
         stopEvent = true;
         play(youWin);
-        competences.removeChild(divSprite); //$('#divSprite').hide()
-
+        competences.removeChild(divSprite);
         linkedIn.style.left = 'auto';
         ballY = linkedIn.offsetTop;
         linkedIn.className = 'linkedin';
@@ -399,8 +351,7 @@ var jeuBreaker = function jeuBreaker() {
     $('#scoreForm').on('submit', function (event) {
       event.preventDefault();
       console.log($('#postName').val() + '/' + score);
-      $('#scoreForm').hide(); //$('#highScore').fadeIn()
-
+      $('#scoreForm').hide();
       $.ajax({
         type: 'POST',
         url: '/highscore',
@@ -431,16 +382,83 @@ var jeuBreaker = function jeuBreaker() {
           });
         }
       });
-    }); //FPS control
+    });
 
-    var fps = 60;
-    var now;
-    var then = Date.now();
-    var interval = 1000 / fps;
-    var delta; //_____________________MAIN()_____Déplacement_balle_dans_Environnement__________________________
+    var deplacerBalle = function deplacerBalle() {
+      var ballSpeed = 2;
+      divSprite.style.top = ballY + 'px'; //ball move left right limit
 
-    var moveBall = function moveBall() {
-      idAni = requestAnimationFrame(moveBall); //fps control
+      if (ballX < competences.offsetLeft + competences.offsetWidth - divSprite.offsetWidth && !ballLeft) {
+        //idR = requestAnimationFrame(animSpriteR)
+        if (angle) {
+          ballX = ballX + 1 * ballSpeed;
+          divSprite.style.left = ballX + 'px';
+        } else {
+          ballX = ballX + 2 * ballSpeed;
+          divSprite.style.left = ballX + 'px';
+        }
+      } else if (ballX > competences.offsetLeft) {
+        ballLeft = true; //idL = requestAnimationFrame(animSprite)
+
+        if (angle) {
+          ballX = ballX - 1 * ballSpeed;
+          divSprite.style.left = ballX + 'px';
+        } else {
+          ballX = ballX - 2 * ballSpeed;
+          divSprite.style.left = ballX + 'px';
+        }
+      } else {
+        ballLeft = false;
+        play(pongA);
+      } //ball move up down limit
+
+
+      if (ballY >= competences.offsetTop && !ballDown) {
+        ballY = ballY - 2 * ballSpeed;
+        divSprite.style.top = ballY + 'px';
+      } else if (ballY < competences.offsetTop + competences.offsetHeight - 30) {
+        ballDown = true;
+        ballY = ballY + 2 * ballSpeed;
+        divSprite.style.top = ballY + 'px';
+        if (ballY + divSprite.offsetHeight > linkedIn.offsetTop && ballY < linkedIn.offsetTop + 5) paddle();
+      } else {
+        ballDown = false;
+        clickMove = true;
+        combo = 1; //------------Short hand style if---------------
+
+        score >= 100 ? score -= 100 : score = 0; //----------------------------------------------
+
+        $('#metier > h2').text('SCORE: ' + score).css({
+          'color': 'red',
+          'font-family': 'sans-serif',
+          'font-size': '2em'
+        }).fadeIn(375);
+        combo = 1;
+        clearInterval(idL);
+        play(miss);
+      }
+
+      if (ballX + divSprite.offsetWidth > competences.offsetLeft + competences.offsetWidth) {
+        play(pongA);
+      }
+
+      if (ballY < competences.offsetTop) {
+        play(pongA);
+      }
+    }; //FPS control
+
+
+    var fps = 60,
+        now,
+        then = Date.now(),
+        interval = 1000 / fps,
+        delta;
+    var fuse = 1;
+    var stopEvent = false;
+    idL = setInterval(animSprite, 60); //_____________________MAIN()_____Déplacement_balle_dans_Environnement__________________________
+
+    var bouclePrincpale = function bouclePrincpale() {
+      idAni = requestAnimationFrame(bouclePrincpale); //fps control
 
       now = Date.now();
       delta = now - then;
@@ -448,78 +466,19 @@ var jeuBreaker = function jeuBreaker() {
       if (delta > interval) {
         then = now - delta % interval; //code for drawing the frame    
 
-        var ballSpeed = 2;
         window.document.addEventListener('mousemove', movepaddle, true);
 
         if (!youwin || !clickMove) {
-          divSprite.style.top = ballY + 'px'; //ball move left right limit
-
-          if (ballX < competences.offsetLeft + competences.offsetWidth - divSprite.offsetWidth && !ballLeft) {
-            //idR = requestAnimationFrame(animSpriteR)
-            if (angle) {
-              ballX = ballX + 1 * ballSpeed;
-              divSprite.style.left = ballX + 'px';
-            } else {
-              ballX = ballX + 2 * ballSpeed;
-              divSprite.style.left = ballX + 'px';
-            }
-          } else if (ballX > competences.offsetLeft) {
-            ballLeft = true; //idL = requestAnimationFrame(animSprite)
-
-            if (angle) {
-              ballX = ballX - 1 * ballSpeed;
-              divSprite.style.left = ballX + 'px';
-            } else {
-              ballX = ballX - 2 * ballSpeed;
-              divSprite.style.left = ballX + 'px';
-            }
-          } else {
-            ballLeft = false;
-            play(pongA);
-          } //ball move up down limit
-
-
-          if (ballY >= competences.offsetTop && !ballDown) {
-            ballY = ballY - 2 * ballSpeed;
-            divSprite.style.top = ballY + 'px';
-          } else if (ballY < competences.offsetTop + competences.offsetHeight - 30) {
-            ballDown = true;
-            ballY = ballY + 2 * ballSpeed;
-            divSprite.style.top = ballY + 'px';
-            if (ballY + divSprite.offsetHeight > linkedIn.offsetTop && ballY < linkedIn.offsetTop + 5) paddle();
-          } else {
-            ballDown = false;
-            clickMove = true;
-            combo = 1; //------------Short hand style if---------------
-
-            score >= 100 ? score -= 100 : score = 0; //----------------------------------------------
-
-            $('#metier > h2').text('SCORE: ' + score).css({
-              'color': 'red',
-              'font-size': '1.5em'
-            }).fadeIn(375);
-            combo = 1;
-            play(miss);
-          }
-
-          if (ballX + divSprite.offsetWidth > competences.offsetLeft + competences.offsetWidth) {
-            play(pongA);
-          }
-
-          if (ballY < competences.offsetTop) {
-            play(pongA);
-          }
-
+          deplacerBalle();
           brickBroken();
           $('#metier > h2').text('SCORE: ' + score).fadeIn();
           jeuTermine();
 
           if (clickMove == false && fuse == 1) {
-            //animMoveBall()
-            //window.document.removeEventListener('click', animMoveBall, true)
             $('#metier > h2').text('SCORE: ' + score).css({
               'color': 'black',
-              'font-size': '1.5em'
+              'font-family': 'sans-serif',
+              'font-size': '2em'
             }).fadeIn(375);
           } else {
             cancelAnimationFrame(idAni);
@@ -538,7 +497,7 @@ var jeuBreaker = function jeuBreaker() {
       }
     };
 
-    moveBall();
+    bouclePrincpale();
   }
 }; //_______________________________________Exec_jeuBreaker___________________________________________________________________________________
 

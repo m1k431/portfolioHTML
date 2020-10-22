@@ -131,7 +131,7 @@ var jeuBreaker = function jeuBreaker() {
     var ballLeft = true;
     var ballDown = false;
     var youwin = false;
-    var angle = false;
+    var angle = 1;
     var idAni, idR, idL; //__________________________________________WEB_Audio_API___________________________________________________________
 
     function play(url) {
@@ -247,29 +247,39 @@ var jeuBreaker = function jeuBreaker() {
 
 
     var paddle = function paddle() {
+      //Left paddle side
       if (ballX + divSprite.offsetWidth / 2 > linkedIn.offsetLeft && ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 2) {
         ballDown = false;
         ballLeft = true;
         combo += 1;
-        play(pongB);
+        play(pongB); //angle renvoi balle
 
-        if (ballX + divSprite.offsetWidth / 2 > linkedIn.offsetLeft + linkedIn.offsetWidth / 4) {
-          angle = true;
-        } else {
-          angle = false;
+        if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 8) {
+          angle = 4;
+        } else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4 - linkedIn.offsetWidth / 8) {
+          angle = 3;
+        } else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4 + linkedIn.offsetWidth / 8) {
+          angle = 2;
+        } else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4) {
+          angle = 1;
         }
-      } else if (ballX + divSprite.offsetWidth / 2 > linkedIn.offsetLeft && ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth + 5) {
-        ballDown = false;
-        ballLeft = false;
-        combo += 1;
-        play(pongB);
+      } //Right paddle side
+      else if (ballX + divSprite.offsetWidth / 2 > linkedIn.offsetLeft && ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth + 5) {
+          ballDown = false;
+          ballLeft = false;
+          combo += 1;
+          play(pongB); //angle renvoi balle
 
-        if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth * 3 / 4) {
-          angle = true;
-        } else {
-          angle = false;
+          if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth * 5 / 8) {
+            angle = 1;
+          } else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth * 6 / 8) {
+            angle = 2;
+          } else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth * 7 / 8) {
+            angle = 3;
+          } else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth) {
+            angle = 4;
+          }
         }
-      }
     }; //__________________________________Déplacement paddle dans environnement de jeu________________________________________________________________________
 
 
@@ -389,24 +399,12 @@ var jeuBreaker = function jeuBreaker() {
       divSprite.style.top = ballY + 'px'; //ball move left right limit
 
       if (ballX < competences.offsetLeft + competences.offsetWidth - divSprite.offsetWidth && !ballLeft) {
-        //idR = requestAnimationFrame(animSpriteR)
-        if (angle) {
-          ballX = ballX + 1 * ballSpeed;
-          divSprite.style.left = ballX + 'px';
-        } else {
-          ballX = ballX + 2 * ballSpeed;
-          divSprite.style.left = ballX + 'px';
-        }
+        ballX = ballX + angle * ballSpeed;
+        divSprite.style.left = ballX + 'px';
       } else if (ballX > competences.offsetLeft) {
-        ballLeft = true; //idL = requestAnimationFrame(animSprite)
-
-        if (angle) {
-          ballX = ballX - 1 * ballSpeed;
-          divSprite.style.left = ballX + 'px';
-        } else {
-          ballX = ballX - 2 * ballSpeed;
-          divSprite.style.left = ballX + 'px';
-        }
+        ballLeft = true;
+        ballX = ballX - angle * ballSpeed;
+        divSprite.style.left = ballX + 'px';
       } else {
         ballLeft = false;
         play(pongA);

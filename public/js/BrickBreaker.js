@@ -131,7 +131,7 @@ const jeuBreaker = function () {
         var ballLeft = true
         var ballDown = false
         var youwin = false
-        var angle = false
+        var angle = 1
         var idAni, idR, idL
 
         //__________________________________________WEB_Audio_API___________________________________________________________
@@ -236,29 +236,48 @@ const jeuBreaker = function () {
 
         //__________________________________Intéraction_balle/paddle_AngleBalle_______________________________________________________
         var paddle = function () {
+            //Left paddle side
             if (ballX + divSprite.offsetWidth / 2 > linkedIn.offsetLeft && ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 2) {
                 ballDown = false
                 ballLeft = true
                 combo += 1
                 play(pongB)
-                if (ballX + divSprite.offsetWidth / 2 > linkedIn.offsetLeft + linkedIn.offsetWidth / 4) {
-                    angle = true
-                } else {
-                    angle = false
+                //angle renvoi balle
+                if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 8) {
+                    angle = 4
                 }
-            } else if (ballX + divSprite.offsetWidth / 2 > linkedIn.offsetLeft && ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth + 5) {
+                else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4 - linkedIn.offsetWidth / 8) {
+                    angle = 3
+                }
+                else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4 + linkedIn.offsetWidth / 8) {
+                    angle = 2
+                }
+                else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4) {
+                    angle = 1
+                }
+            }
+            //Right paddle side
+            else if (ballX + divSprite.offsetWidth / 2 > linkedIn.offsetLeft && ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth + 5) {
                 ballDown = false
                 ballLeft = false
                 combo += 1
                 play(pongB)
-                if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth * 3 / 4) {
-                    angle = true
-                } else {
-                    angle = false
+                //angle renvoi balle
+                if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth * 5 / 8) {
+                    angle = 1
+                } 
+                else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth * 6 / 8) {
+                    angle = 2
+                }
+                else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth * 7 / 8) {
+                    angle = 3
+                }
+                else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth) {
+                    angle = 4
                 }
             }
-        }
 
+        }
         //__________________________________Déplacement paddle dans environnement de jeu________________________________________________________________________
         var movepaddle = function (mon0bjetEvent) {
             if (mon0bjetEvent.clientX - linkedIn.offsetWidth / 2 > competences.offsetLeft && mon0bjetEvent.clientX + linkedIn.offsetWidth / 2 < competences.offsetWidth + competences.offsetLeft) {
@@ -381,25 +400,16 @@ const jeuBreaker = function () {
             divSprite.style.top = ballY + 'px'
             //ball move left right limit
             if (ballX < competences.offsetLeft + competences.offsetWidth - divSprite.offsetWidth && !ballLeft) {
-                //idR = requestAnimationFrame(animSpriteR)
-                if (angle) {
-                    ballX = ballX + 1 * ballSpeed
-                    divSprite.style.left = ballX + 'px'
-                } else {
-                    ballX = ballX + 2 * ballSpeed
-                    divSprite.style.left = ballX + 'px'
-                }
-            } else if (ballX > competences.offsetLeft) {
+                ballX = ballX + angle * ballSpeed
+                divSprite.style.left = ballX + 'px'
+            }
+            else if (ballX > competences.offsetLeft) {
                 ballLeft = true
-                //idL = requestAnimationFrame(animSprite)
-                if (angle) {
-                    ballX = ballX - 1 * ballSpeed
-                    divSprite.style.left = ballX + 'px'
-                } else {
-                    ballX = ballX - 2 * ballSpeed
-                    divSprite.style.left = ballX + 'px'
-                }
-            } else {
+                ballX = ballX - angle * ballSpeed
+                divSprite.style.left = ballX + 'px'
+
+            }
+            else {
                 ballLeft = false
                 play(pongA)
             }

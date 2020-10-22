@@ -52,6 +52,7 @@ var express = require('express'),
     logger = log4js.getLogger('file'),
     nbLog = datetime.getFullYear() + String(datetime.getMonthFormatted()) + String(datetime.getDate()) + String(datetime.getHoursFormatted()) + String(datetime.getMinutesFormatted()) + String(datetime.getSecondsFormatted()),
     mysql = require('mysql'),
+    ejs = require('ejs'),
     app = express();
 
 var p0rt = 80,
@@ -130,10 +131,10 @@ app.use('/static', express["static"](__dirname + '/public', {
   maxAge: '0d'
 })); //sess.store.clear()
 
-app.use(session(sess));
-app.engine('html', require('ejs').renderFile); //app.set('view engine', 'pug')
+app.use(session(sess)); //app.engine('html', require('ejs').renderFile);
+//app.set('view engine', 'pug')
 
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 app.set('views', 'public');
 
 if (app.get('env') === 'production') {
@@ -186,7 +187,7 @@ app.get('/', function (req, res) {
 
   req.session.ip = req.connection.remoteAddress;
   req.session.geoloc = geoip.lookup(req.session.ip);
-  res.render('index.html', {}); //LOGGER
+  res.render('index', {}); //LOGGER
 
   logger.trace(req.sessionID);
   logger.trace(req.session);
@@ -205,7 +206,7 @@ app.get('/cv', function (req, res) {
   req.session.horodate = new Date(); //fix UTC+2 hours
 
   req.session.horodate.setUTCHours(req.session.horodate.getHours());
-  res.render('cv.html', {}); //LOGGER
+  res.render('cv', {}); //LOGGER
 
   logger.trace(req.session);
   console.log(req.session);
@@ -222,7 +223,7 @@ app.get('/adm1n', function (req, res) {
   req.session.horodate = new Date(); //fix UTC+2 hours
 
   req.session.horodate.setUTCHours(req.session.horodate.getHours());
-  res.render('adm1n.html', {}); //LOGGER
+  res.render('adm1n', {}); //LOGGER
 
   logger.trace(req.session);
   console.log(req.session);
@@ -239,13 +240,18 @@ app.get('/giftedADHD', function (req, res) {
   req.session.horodate = new Date(); //fix UTC+2 hours
 
   req.session.horodate.setUTCHours(req.session.horodate.getHours());
-  res.render('giftedADHD.html', {}); //LOGGER
+  res.render('giftedADHD', {}); //LOGGER
 
   logger.trace(req.session);
   console.log(req.session);
 });
 app.get('/leaflet', function (req, res) {
-  //VIEWS
+  //ip track
+  req.session.ip = req.connection.remoteAddress;
+  req.session.geoloc = geoip.lookup(req.session.ip);
+  var longitude = req.session.geoloc.ll[0],
+      latitude = req.session.geoloc.ll[1]; //VIEWS
+
   if (!req.session.views) {
     req.session.views = {};
   }
@@ -256,10 +262,14 @@ app.get('/leaflet', function (req, res) {
   req.session.horodate = new Date(); //fix UTC+2 hours
 
   req.session.horodate.setUTCHours(req.session.horodate.getHours());
-  res.render('leaflet.html', {}); //LOGGER
+  res.render('leaflet', {
+    longitude: longitude,
+    latitude: latitude
+  }); //LOGGER
 
   logger.trace(req.session);
   console.log(req.session);
+  console.log('longitude: ' + longitude + ' Latitude: ' + latitude);
 });
 app.get('/highscore', urlencodedParser, function (req, res) {
   conMysql.query('select name, score from portfolio.highscore order by score desc', function (error, results, fields) {

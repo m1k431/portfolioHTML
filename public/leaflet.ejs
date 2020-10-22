@@ -31,9 +31,11 @@
     <li>
       <a class="nav css3button" id="resume" rel="preconnect" href="/cv">CV</a>
     </li>
-    <!--lia#admin.nav(rel='preconnect' href='/adm1n' class='css3button') aL1v3-->
     <li>
       <a class="nav css3button" id="adhd" rel="preconnect" href="/giftedADHD">ADHD</a>
+    </li>
+    <li>
+      <a class="nav css3button" id="?" rel="preconnect" href="/leaflet">ME</a>
     </li>
   </ul>
 </nav>
@@ -42,6 +44,7 @@
   <canvas class="background"></canvas>
   <!--audio#bonnie(src='./static/sound/BONNIE.mp3' autoplay='')-->
   <div id="m0ncentrage">
+    <h2>WHERE AM I</h2>
     <div id="INDEX">
 
       <div id="mapid"></div>
@@ -91,13 +94,17 @@
   $("#m0ncentrage").show();
   //var bonnie = window.document.getElementById('bonnie')
   //bonnie.play()
-  var map = L.map('INDEX').setView([48.8543, 2.3527], 2);
+  var map = L.map('INDEX').setView([48.8543, 2.3527], 1);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
-  L.marker([48.8543, 2.3527]).addTo(map)
+  //L.marker([48.8543, 2.3527]).addTo(map)
+  var latitude = "<%= latitude %>"
+  var  longitude = "<%= longitude %>"
+    console.log('longitude: ' + longitude + ' latitude: ' + latitude)
+  L.marker([longitude, latitude]).addTo(map)
     .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
     .openPopup();
 </script>

@@ -44,6 +44,7 @@ var express = require('express'),
     logger = log4js.getLogger('file'),
     nbLog = datetime.getFullYear() + String(datetime.getMonthFormatted()) + String(datetime.getDate()) + String(datetime.getHoursFormatted()) + String(datetime.getMinutesFormatted()) + String(datetime.getSecondsFormatted()),
     mysql = require('mysql'),
+    ejs = require('ejs'),
     app = express()
 
 let p0rt = 80,
@@ -126,9 +127,9 @@ app.use('/static', express.static(__dirname + '/public', {
 app.use(session(sess))
 
 
-app.engine('html', require('ejs').renderFile);
+//app.engine('html', require('ejs').renderFile);
 //app.set('view engine', 'pug')
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 app.set('views', 'public')
 
 if (app.get('env') === 'production') {
@@ -178,7 +179,7 @@ app.get('/', (req, res) => {
     //ip track
     req.session.ip = req.connection.remoteAddress
     req.session.geoloc = geoip.lookup(req.session.ip)
-    res.render('index.html', {})
+    res.render('index', {})
     //LOGGER
     logger.trace(req.sessionID)
     logger.trace(req.session)
@@ -197,7 +198,7 @@ app.get('/cv', (req, res) => {
     req.session.horodate = new Date()
     //fix UTC+2 hours
     req.session.horodate.setUTCHours(req.session.horodate.getHours())
-    res.render('cv.html', {})
+    res.render('cv', {})
     //LOGGER
     logger.trace(req.session)
     console.log(req.session)
@@ -214,7 +215,7 @@ app.get('/adm1n', (req, res) => {
     req.session.horodate = new Date()
     //fix UTC+2 hours
     req.session.horodate.setUTCHours(req.session.horodate.getHours())
-    res.render('adm1n.html', {})
+    res.render('adm1n', {})
     //LOGGER
     logger.trace(req.session)
     console.log(req.session)
@@ -231,13 +232,18 @@ app.get('/giftedADHD', (req, res) => {
     req.session.horodate = new Date()
     //fix UTC+2 hours
     req.session.horodate.setUTCHours(req.session.horodate.getHours())
-    res.render('giftedADHD.html', {})
+    res.render('giftedADHD', {})
     //LOGGER
     logger.trace(req.session)
     console.log(req.session)
 })
 
 app.get('/leaflet', (req, res) => {
+    //ip track
+    req.session.ip = req.connection.remoteAddress
+    req.session.geoloc = geoip.lookup(req.session.ip)
+    var longitude = req.session.geoloc.ll[0],
+    latitude = req.session.geoloc.ll[1]
     //VIEWS
     if (!req.session.views) {
         req.session.views = {}
@@ -248,10 +254,11 @@ app.get('/leaflet', (req, res) => {
     req.session.horodate = new Date()
     //fix UTC+2 hours
     req.session.horodate.setUTCHours(req.session.horodate.getHours())
-    res.render('leaflet.html', {})
+    res.render('leaflet', {longitude, latitude})
     //LOGGER
     logger.trace(req.session)
     console.log(req.session)
+    console.log('longitude: ' + longitude + ' Latitude: ' + latitude)
 })
 
 app.get('/highscore', urlencodedParser, (req, res) => {

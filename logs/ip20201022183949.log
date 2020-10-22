@@ -1,0 +1,92 @@
+Fri Oct 22 2021 18:39:49 GMT+0200 (GMT+02:00)[2020-10-22T18:39:50.949] [TRACE] file - Session {
+  cookie: {
+    path: '/',
+    _expires: 2021-01-20T16:39:50.944Z,
+    originalMaxAge: 7775999999,
+    httpOnly: true
+  },
+  __lastAccess: 1603384790945,
+  views: { '/': 4, '/cv': 3, '/giftedADHD': 1, '/leaflet': 15 },
+  horodate: 2020-10-22T18:39:50.940Z,
+  ip: '86.247.78.60',
+  geoloc: {
+    range: [ 1459046400, 1459048447 ],
+    country: 'FR',
+    region: 'IDF',
+    eu: '1',
+    timezone: 'Europe/Paris',
+    city: 'Paris',
+    ll: [ 48.8543, 2.3527 ],
+    metro: 0,
+    area: 5
+  }
+}
+[2020-10-22T18:41:13.251] [TRACE] file - Session {
+  cookie: {
+    path: '/',
+    _expires: 2021-01-20T16:41:13.249Z,
+    originalMaxAge: 7775999999,
+    httpOnly: true
+  },
+  __lastAccess: 1603384873250,
+  views: { '/': 4, '/cv': 3, '/giftedADHD': 1, '/leaflet': 16 },
+  horodate: 2020-10-22T18:41:13.248Z,
+  ip: '86.247.78.60',
+  geoloc: {
+    range: [ 1459046400, 1459048447 ],
+    country: 'FR',
+    region: 'IDF',
+    eu: '1',
+    timezone: 'Europe/Paris',
+    city: 'Paris',
+    ll: [ 48.8543, 2.3527 ],
+    metro: 0,
+    area: 5
+  }
+}
+[2020-10-22T18:41:18.004] [TRACE] file - Session {
+  cookie: {
+    path: '/',
+    _expires: 2021-01-20T16:41:18.002Z,
+    originalMaxAge: 7775999999,
+    httpOnly: true
+  },
+  __lastAccess: 1603384878003,
+  views: { '/': 4, '/cv': 3, '/giftedADHD': 1, '/leaflet': 17 },
+  horodate: 2020-10-22T18:41:18.001Z,
+  ip: '86.247.78.60',
+  geoloc: {
+    range: [ 1459046400, 1459048447 ],
+    country: 'FR',
+    region: 'IDF',
+    eu: '1',
+    timezone: 'Europe/Paris',
+    city: 'Paris',
+    ll: [ 48.8543, 2.3527 ],
+    metro: 0,
+    area: 5
+  }
+}
+[2020-10-22T18:41:35.211] [TRACE] file - Session {
+  cookie: {
+    path: '/',
+    _expires: 2021-01-20T16:41:35.210Z,
+    originalMaxAge: 7775999999,
+    httpOnly: true
+  },
+  __lastAccess: 1603384895211,
+  views: { '/': 4, '/cv': 3, '/giftedADHD': 1, '/leaflet': 18 },
+  horodate: 2020-10-22T18:41:35.208Z,
+  ip: '86.247.78.60',
+  geoloc: {
+    range: [ 1459046400, 1459048447 ],
+    country: 'FR',
+    region: 'IDF',
+    eu: '1',
+    timezone: 'Europe/Paris',
+    city: 'Paris',
+    ll: [ 48.8543, 2.3527 ],
+    metro: 0,
+    area: 5
+  }
+}

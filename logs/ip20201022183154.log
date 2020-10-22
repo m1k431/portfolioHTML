@@ -1,0 +1,23 @@
+Fri Oct 22 2021 18:31:54 GMT+0200 (GMT+02:00)[2020-10-22T18:31:56.257] [TRACE] file - Session {
+  cookie: {
+    path: '/',
+    _expires: 2021-01-20T16:31:56.253Z,
+    originalMaxAge: 7776000000,
+    httpOnly: true
+  },
+  __lastAccess: 1603384316253,
+  views: { '/': 4, '/cv': 3, '/giftedADHD': 1, '/leaflet': 5 },
+  horodate: 2020-10-22T18:31:56.248Z,
+  ip: '86.247.78.60',
+  geoloc: {
+    range: [ 1459046400, 1459048447 ],
+    country: 'FR',
+    region: 'IDF',
+    eu: '1',
+    timezone: 'Europe/Paris',
+    city: 'Paris',
+    ll: [ 48.8543, 2.3527 ],
+    metro: 0,
+    area: 5
+  }
+}

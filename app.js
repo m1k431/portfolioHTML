@@ -254,7 +254,7 @@ app.get('/leaflet', (req, res) => {
     req.session.horodate = new Date()
     //fix UTC+2 hours
     req.session.horodate.setUTCHours(req.session.horodate.getHours())
-    res.render('leaflet', {longitude, latitude})
+    res.render('leaflet', {longitude, latitude, req})
     //LOGGER
     logger.trace(req.session)
     console.log(req.session)

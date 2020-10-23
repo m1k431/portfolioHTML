@@ -264,7 +264,8 @@ app.get('/leaflet', function (req, res) {
   req.session.horodate.setUTCHours(req.session.horodate.getHours());
   res.render('leaflet', {
     longitude: longitude,
-    latitude: latitude
+    latitude: latitude,
+    req: req
   }); //LOGGER
 
   logger.trace(req.session);
